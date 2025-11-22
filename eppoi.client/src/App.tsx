@@ -1,58 +1,64 @@
-import { useEffect, useState } from 'react';
-import './App.css';
+import { useState } from 'react';
+import WelcomePage from './components/WelcomePage';
+import LoginPage from './components/LoginPage';
+import RegisterPage from './components/RegisterPage';
+import HomePage from './components/HomePage';
 
-interface Forecast {
-    date: string;
-    temperatureC: number;
-    temperatureF: number;
-    summary: string;
-}
+export default function App() {
+    const [currentPage, setCurrentPage] = useState<'welcome' | 'login' | 'register' | 'home'>('welcome');
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [userName, setUserName] = useState('');
 
-function App() {
-    const [forecasts, setForecasts] = useState<Forecast[]>();
+    const handleLogin = (name: string) => {
+        setIsAuthenticated(true);
+        setUserName(name);
+        setCurrentPage('home');
+    };
 
-    useEffect(() => {
-        populateWeatherData();
-    }, []);
+    const handleLogout = () => {
+        setIsAuthenticated(false);
+        setUserName('');
+        setCurrentPage('welcome');
+    };
 
-    const contents = forecasts === undefined
-        ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
-        : <table className="table table-striped" aria-labelledby="tableLabel">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Temp. (C)</th>
-                    <th>Temp. (F)</th>
-                    <th>Summary</th>
-                </tr>
-            </thead>
-            <tbody>
-                {forecasts.map(forecast =>
-                    <tr key={forecast.date}>
-                        <td>{forecast.date}</td>
-                        <td>{forecast.temperatureC}</td>
-                        <td>{forecast.temperatureF}</td>
-                        <td>{forecast.summary}</td>
-                    </tr>
-                )}
-            </tbody>
-        </table>;
+    const handleNavigateToLogin = () => {
+        setCurrentPage('login');
+    };
 
-    return (
-        <div>
-            <h1 id="tableLabel">Weather forecast</h1>
-            <p>This component demonstrates fetching data from the server.</p>
-            {contents}
-        </div>
-    );
+    const handleNavigateToRegister = () => {
+        setCurrentPage('register');
+    };
 
-    async function populateWeatherData() {
-        const response = await fetch('weatherforecast');
-        if (response.ok) {
-            const data = await response.json();
-            setForecasts(data);
+    const handleNavigateToWelcome = () => {
+        setCurrentPage('welcome');
+    };
+
+    if (!isAuthenticated) {
+        if (currentPage === 'login') {
+            return (
+                <LoginPage
+                    onLogin={handleLogin}
+                    onNavigateToRegister={handleNavigateToRegister}
+                    onNavigateToWelcome={handleNavigateToWelcome}
+                />
+            );
         }
+        if (currentPage === 'register') {
+            return (
+                <RegisterPage
+                    onRegister={handleLogin}
+                    onNavigateToLogin={handleNavigateToLogin}
+                    onNavigateToWelcome={handleNavigateToWelcome}
+                />
+            );
+        }
+        return (
+            <WelcomePage
+                onNavigateToLogin={handleNavigateToLogin}
+                onNavigateToRegister={handleNavigateToRegister}
+            />
+        );
     }
-}
 
-export default App;
+    return <HomePage userName={userName} onLogout={handleLogout} />;
+}
