@@ -2,6 +2,7 @@ import { fileURLToPath, URL } from 'node:url';
 
 import { defineConfig } from 'vite';
 import plugin from '@vitejs/plugin-react';
+import { mockDevServerPlugin } from 'vite-plugin-mock-dev-server';
 import fs from 'fs';
 import path from 'path';
 import child_process from 'child_process';
@@ -42,6 +43,7 @@ const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_H
 export default defineConfig({
     plugins: [
         plugin(),
+        mockDevServerPlugin(),
         VitePWA({
             registerType: 'autoUpdate',
             devOptions: {
