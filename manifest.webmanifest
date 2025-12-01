@@ -6,8 +6,8 @@
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
   "display": "standalone",
-  "start_url": "https://3406eb4de5ad.ngrok-free.app/",
-  "scope": "https://3406eb4de5ad.ngrok-free.app/",
+  "start_url": "https://b3339c520a52.ngrok-free.app/",
+  "scope": "https://b3339c520a52.ngrok-free.app/",
   "icons": [
     {
       "src": "https://cdn.jsdelivr.net/gh/rutbastoni-unicam/BMR_SPM@master/icon-192x192.png",
