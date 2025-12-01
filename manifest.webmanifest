@@ -1,0 +1,25 @@
+{
+  "id": "/",
+  "name": "Eppoi App",
+  "short_name": "Eppoi",
+  "description": "Il tuo assistente turistico",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "start_url": "https://3406eb4de5ad.ngrok-free.app/",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
